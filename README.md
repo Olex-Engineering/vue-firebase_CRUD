@@ -1,5 +1,7 @@
 # muse-ninjas
 
+## A project that demonstrates the use of CRUD operations in VUE
+
 ## Demo
 https://muso-ninjas-4c5ad.web.app/login
 
