@@ -1,5 +1,8 @@
 # muse-ninjas
 
+## Demo
+https://muso-ninjas-4c5ad.web.app/login
+
 ## Project setup
 ```
 npm install
