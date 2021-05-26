@@ -1,19 +1,59 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/auth/Login.vue'
+import Signup from '../views/auth/Signup.vue'
+import CreatePlaylist from '../views/playlists/CreatePlaylist.vue'
+import PlaylistDetails from '../views/playlists/PlaylistDetails.vue'
+import UserPlaylists from '../views/playlists/UserPlaylists.vue'
+import { projectAuth } from '../firebase/config'
+
+//route guard
+const requireAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+
+  if (!user) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
+}
+
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: requireAuth,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/Signup',
+    name: 'Signup',
+    component: Signup,
+  },
+  {
+    path: '/playlist/create',
+    name: 'CreatePlaylist',
+    component: CreatePlaylist,
+    beforeEnter: requireAuth,
+  },
+  {
+    path: '/playlists/:id',
+    name: 'PlaylistDetails',
+    component: PlaylistDetails,
+    beforeEnter: requireAuth,
+    props: true
+  },
+  {
+    path: '/playlits/user',
+    name: 'UserPlaylists',
+    component: UserPlaylists,
+    beforeEnter: requireAuth,
   }
 ]
 
